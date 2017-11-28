@@ -1,0 +1,18 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/logs/logs"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#111",
+    "navigationBarTitleText": "webpack-wxTest",
+    "navigationBarTextStyle":"white",
+    "backgroundColor": "#333333"
+  },
+
+  "networkTimeout": {
+    "request": 10000,
+    "downloadFile": 10000
+  }
+}
