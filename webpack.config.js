@@ -1,13 +1,31 @@
 const path = require('path');
 const webpack = require('webpack');
-// const WXAppWebpackPlugin = require('wxapp-webpack-plugin');
+const WXAppWebpackPlugin = require('wxapp-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+
+// import path from 'path';
+// import webpack from 'webpack'
+// import WXAppWebpackPlugin from 'wxapp-webpack-plugin'
+// import CopyWebpackPlugin from 'copy-webpack-plugin'
+// import CleanWebpackPlugin from 'clean-webpack-plugin'
 
 const NODE_ENV = process.env.NODE_ENV;
 const IS_PRODUCTION = 'production' === NODE_ENV;
 const IS_BETA = 'beta' === NODE_ENV;
 const IS_DEVELOPMENT = 'development' === NODE_ENV;
+
+const relativeFileLoader = (ext = '[ext]') => [
+	{
+		loader: 'file-loader',
+		options: {
+			publicPath: '',
+			useRelativePath: true,
+			name: `[name].${ext}`,
+			emitFile: false,
+		},
+	},
+];
 
 let webpackConfig = {
   entry: {
@@ -76,47 +94,67 @@ let webpackConfig = {
                 minimize: false,
             },
         }],
+      }, {
+        test: /\.scss$/,
+        include: /src/,
+        use: [
+          ...relativeFileLoader('wxss'),
+          {
+            loader: 'sass-loader',
+            options: {
+              includePaths: [
+                path.resolve('src', 'styles'),
+                path.resolve('src'),
+              ],
+            },
+          },
+        ],
       }],
   },
-  plugins: (() => {
-    let webpackPlugins = [
-      new webpack.DefinePlugin({
-        'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
-        'process.env.PLATFORM': JSON.stringify('weChat'),
-      }),
-    ];
-
-    if (IS_PRODUCTION || IS_BETA) {
-      webpackPlugins = [
-        ...webpackPlugins,
-        new CleanWebpackPlugin('./dist', {
-          exclude: ['app.json'],
-          verbose: true,
-          dry: false,
-        }),
-        new webpack.optimize.UglifyJsPlugin({
-          beautify: false,
-          comments: false,
-          compress: {
-              warnings: false,
-              drop_console: true,
-              collapse_vars: true,
-              reduce_vars: true,
-          }
-        }),
-      ]
-    }
-
-    webpackPlugins = [
-      ...webpackPlugins,
-      // new WXAppWebpackPlugin(),
-      new CopyWebpackPlugin([
-        {from: 'src/app.json', to: path.join(__dirname, 'dist')}
-      ]),
-    ];
-
-    return webpackPlugins;
-  })(),
+  plugins: [
+    // new WXAppWebpackPlugin({
+    //   clear: false,
+    // }),
+  ],
+  // plugins: (() => {
+  //   let webpackPlugins = [
+  //     new webpack.DefinePlugin({
+  //       'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
+  //       'process.env.PLATFORM': JSON.stringify('weChat'),
+  //     }),
+  //   ];
+  //
+  //   if (IS_PRODUCTION || IS_BETA) {
+  //     webpackPlugins = [
+  //       ...webpackPlugins,
+  //       new CleanWebpackPlugin('./dist', {
+  //         exclude: ['app.json'],
+  //         verbose: true,
+  //         dry: false,
+  //       }),
+  //       new webpack.optimize.UglifyJsPlugin({
+  //         beautify: false,
+  //         comments: false,
+  //         compress: {
+  //             warnings: false,
+  //             drop_console: true,
+  //             collapse_vars: true,
+  //             reduce_vars: true,
+  //         }
+  //       }),
+  //     ]
+  //   }
+  //
+  //   webpackPlugins = [
+  //     ...webpackPlugins,
+  //
+  //     new CopyWebpackPlugin([
+  //       {from: 'src/app.json', to: path.join(__dirname, 'dist')}
+  //     ]),
+  //   ];
+  //
+  //   return webpackPlugins;
+  // })(),
 };
 
 module.exports = webpackConfig;
