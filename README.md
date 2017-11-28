@@ -1,0 +1,7 @@
+##setup
+
+```
+$ yarn 
+
+$ yarn dev
+```
