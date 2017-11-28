@@ -21,6 +21,9 @@
     "wxapp-webpack-plugin": "^0.0.0-12",
     "wxml-loader": "^0.1.0"
   },
+  "devDependencies": {
+    "webpack-dashboard": "^1.0.2",
+  },
   "scripts": {
     "dev": "NODE_ENV=development webpack --watch --progress --config webpack.config.js",
     "beta": "NODE_ENV=beta webpack --watch --progress --config webpack.config.js",
