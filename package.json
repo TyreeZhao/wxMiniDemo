@@ -17,12 +17,12 @@
     "sass-loader": "^6.0.6",
     "style-loader": "^0.19.0",
     "url-loader": "^0.6.2",
-    "webpack": "^3.8.1",
+    "webpack": "^3.4.1",
     "wxapp-webpack-plugin": "^0.0.0-12",
-    "wxml-loader": "^0.1.0"
+    "wxml-loader": "^0.0.0-15"
   },
   "devDependencies": {
-    "webpack-dashboard": "^1.0.2",
+    "webpack-dashboard": "^1.0.2"
   },
   "scripts": {
     "dev": "NODE_ENV=development webpack --watch --progress --config webpack.config.js",

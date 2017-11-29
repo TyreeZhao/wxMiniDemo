@@ -111,50 +111,45 @@ let webpackConfig = {
         ],
       }],
   },
-  plugins: [
-    // new WXAppWebpackPlugin({
-    //   clear: false,
-    // }),
-  ],
-  // plugins: (() => {
-  //   let webpackPlugins = [
-  //     new webpack.DefinePlugin({
-  //       'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
-  //       'process.env.PLATFORM': JSON.stringify('weChat'),
-  //     }),
-  //   ];
-  //
-  //   if (IS_PRODUCTION || IS_BETA) {
-  //     webpackPlugins = [
-  //       ...webpackPlugins,
-  //       new CleanWebpackPlugin('./dist', {
-  //         exclude: ['app.json'],
-  //         verbose: true,
-  //         dry: false,
-  //       }),
-  //       new webpack.optimize.UglifyJsPlugin({
-  //         beautify: false,
-  //         comments: false,
-  //         compress: {
-  //             warnings: false,
-  //             drop_console: true,
-  //             collapse_vars: true,
-  //             reduce_vars: true,
-  //         }
-  //       }),
-  //     ]
-  //   }
-  //
-  //   webpackPlugins = [
-  //     ...webpackPlugins,
-  //
-  //     new CopyWebpackPlugin([
-  //       {from: 'src/app.json', to: path.join(__dirname, 'dist')}
-  //     ]),
-  //   ];
-  //
-  //   return webpackPlugins;
-  // })(),
+  plugins: (() => {
+    let webpackPlugins = [
+      new webpack.DefinePlugin({
+        'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
+        'process.env.PLATFORM': JSON.stringify('weChat'),
+      }),
+    ];
+
+    if (IS_PRODUCTION || IS_BETA) {
+      webpackPlugins = [
+        ...webpackPlugins,
+        new CleanWebpackPlugin('./dist', {
+          exclude: ['app.json'],
+          verbose: true,
+          dry: false,
+        }),
+        new webpack.optimize.UglifyJsPlugin({
+          beautify: false,
+          comments: false,
+          compress: {
+              warnings: false,
+              drop_console: true,
+              collapse_vars: true,
+              reduce_vars: true,
+          }
+        }),
+      ]
+    }
+
+    webpackPlugins = [
+      ...webpackPlugins,
+
+      new CopyWebpackPlugin([
+        {from: 'src/app.json', to: path.join(__dirname, 'dist')}
+      ]),
+    ];
+
+    return webpackPlugins;
+  })(),
 };
 
 module.exports = webpackConfig;
