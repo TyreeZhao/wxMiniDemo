@@ -1,3 +1,6 @@
 <view>
-  1236766
+  测试页。。。
+  <view bindtap="click" class="button">
+    button
+  </view>
 </view>

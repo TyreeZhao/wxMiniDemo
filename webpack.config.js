@@ -1,5 +1,6 @@
 const path = require('path');
 const WXAppWebpackPlugin = require('wxapp-webpack-plugin');
+const webpack = require('webpack')
 
 const NODE_ENV = process.env.NODE_ENV;
 const IS_PRODUCTION = 'production' === NODE_ENV;
@@ -16,6 +17,10 @@ module.exports = {
  },
  plugins: [
    new WXAppWebpackPlugin(),
+   new webpack.DefinePlugin({
+     'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
+     'process.env.PLATFORM': JSON.stringify('WeChat'),
+  })
  ],
  module: {
    loaders: [{
