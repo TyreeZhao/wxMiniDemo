@@ -2,6 +2,9 @@ const path = require('path');
 const WXAppWebpackPlugin = require('wxapp-webpack-plugin');
 
 const NODE_ENV = process.env.NODE_ENV;
+const IS_PRODUCTION = 'production' === NODE_ENV;
+const IS_BETA = 'beta' === NODE_ENV;
+const IS_DEVELOPMENT = 'development' === NODE_ENV;
 
 module.exports = {
  // 引入 `app.js`
