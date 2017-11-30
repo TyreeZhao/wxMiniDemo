@@ -1,4 +1,3 @@
-<scroll-view wx:for="{{projects}}" wx:for-item="project" class="container">
-  <view>1223</view>
-  <view>{{project.name}}</view>
-</scroll-view>
+<view>
+  1236766
+</view>
