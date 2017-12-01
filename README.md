@@ -8,5 +8,5 @@ $ yarn dev
 ```
 
 
-# LICENSE
+### LICENSE
   MIT
